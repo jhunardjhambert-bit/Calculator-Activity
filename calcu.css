@@ -1,0 +1,703 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Fredoka", sans-serif;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    overflow-x: hidden;
+
+    /* all ocean blue, no sand strip */
+    background: linear-gradient(to bottom, #7fdbff 0%, #2ea8e0 55%, #1a6fb5 100%);
+    background-attachment: fixed;
+}
+
+/* FLOATING BUBBLES */
+.bubbles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bubbles span {
+    position: absolute;
+    bottom: -60px;
+    font-size: 2rem;
+    opacity: 0.7;
+    animation: floatUp 12s linear infinite;
+}
+
+.bubbles span:nth-child(1) {
+    left: 5%;
+    animation-duration: 11s;
+}
+
+.bubbles span:nth-child(2) {
+    left: 18%;
+    animation-duration: 14s;
+    animation-delay: 2s;
+    font-size: 1.4rem;
+}
+
+.bubbles span:nth-child(3) {
+    left: 32%;
+    animation-duration: 10s;
+    animation-delay: 5s;
+}
+
+.bubbles span:nth-child(4) {
+    left: 47%;
+    animation-duration: 15s;
+    animation-delay: 1s;
+    font-size: 2.6rem;
+}
+
+.bubbles span:nth-child(5) {
+    left: 62%;
+    animation-duration: 12s;
+    animation-delay: 4s;
+}
+
+.bubbles span:nth-child(6) {
+    left: 75%;
+    animation-duration: 13s;
+    animation-delay: 7s;
+    font-size: 1.5rem;
+}
+
+.bubbles span:nth-child(7) {
+    left: 88%;
+    animation-duration: 11s;
+    animation-delay: 3s;
+}
+
+.bubbles span:nth-child(8) {
+    left: 95%;
+    animation-duration: 16s;
+    animation-delay: 6s;
+    font-size: 2.2rem;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-115vh) translateX(30px);
+    }
+}
+
+.wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* TITLE */
+.title {
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    color: #fff;
+    background-color: #e53935;
+    border: 4px solid #8b1a1a;
+    border-radius: 14px;
+    padding: 6px 22px;
+    margin: 0 0 22px;
+    box-shadow: 4px 4px 0 #8b1a1a;
+    text-shadow: 2px 2px 0 #8b1a1a;
+}
+
+/* CALCULATOR BODY (SPONGE YELLOW) */
+.calculator {
+    position: relative;
+    background-color: #ffe14d;
+    background-image:
+        radial-gradient(#e6c230 5px, transparent 6px),
+        radial-gradient(#e6c230 3px, transparent 4px);
+    background-size: 46px 46px, 31px 31px;
+    background-position: 6px 8px, 28px 30px;
+    padding: 22px;
+    border-radius: 28px;
+    border: 5px solid #8a5a2b;
+    box-shadow: 8px 8px 0 #8a5a2b;
+    width: min(100%, 360px);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calculator:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0 #8a5a2b;
+}
+
+/* FLIPS THE CALCULATOR 180 DEGREES WHEN 5318008 IS ENTERED */
+.calculator.upside-down {
+    transform: rotate(180deg);
+}
+
+/* LITTLE TAG */
+.tag {
+    position: absolute;
+    top: -22px;
+    right: -14px;
+    transform: rotate(8deg);
+    background-color: #ff8fb8;
+    color: #fff;
+    font-family: "Luckiest Guy", cursive;
+    font-size: 0.8rem;
+    line-height: 1.1;
+    text-align: center;
+    padding: 6px 10px;
+    border: 3px solid #c2467a;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0 #c2467a;
+}
+
+/* DISPLAY */
+.display {
+    background-color: #eafaff;
+    border: 4px solid #8a5a2b;
+    border-radius: 16px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    text-align: right;
+}
+
+form input[name="textview"] {
+    width: 100%;
+    height: 34px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #5b6b78;
+    font-family: "Patrick Hand", cursive;
+    font-size: 1.5rem;
+    text-align: right;
+    padding: 0;
+}
+
+.result {
+    height: 44px;
+    line-height: 44px;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #1a6fb5;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.result.alert {
+    color: #e53935;
+    font-size: 1.5rem;
+    animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: 0.45;
+    }
+}
+
+/* BUTTONS */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    font-family: "Fredoka", sans-serif;
+    height: 56px;
+    border: 3px solid #8a5a2b;
+    border-radius: 14px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #5a3a14;
+    background-color: #fff6c9;
+    box-shadow: 0 4px 0 #8a5a2b;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        transform 0.1s ease,
+        box-shadow 0.1s ease;
+}
+
+button:hover {
+    background-color: #ffffff;
+}
+
+button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #8a5a2b;
+}
+
+.btn-op {
+    background-color: #7fdbff;
+}
+
+.btn-op:hover {
+    background-color: #b5ecff;
+}
+
+.btn-clear {
+    background-color: #ff8a80;
+}
+
+.btn-clear:hover {
+    background-color: #ffb0aa;
+}
+
+.btn-func {
+    background-color: #ffb3d1;
+}
+
+.btn-func:hover {
+    background-color: #ffd0e2;
+}
+
+.btn-zero {
+    grid-column: span 2;
+}
+
+.btn-equal {
+    grid-column: span 2;
+    background-color: #7ee08a;
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    font-size: 1.6rem;
+}
+
+.btn-equal:hover {
+    background-color: #a6efae;
+}
+
+.btn-pay {
+    grid-column: span 2;
+    background-color: #ff8fb8;
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.btn-pay:hover {
+    background-color: #ffb3d1;
+}
+
+.note {
+    margin: 20px 0 0;
+    font-family: "Patrick Hand", cursive;
+    font-size: 1.1rem;
+    color: #fff;
+    text-align: center;
+    text-shadow: 1px 1px 0 #1a6fb5;
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background-color: rgba(10, 60, 100, 0.55);
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal {
+    width: min(100%, 360px);
+    max-height: 92vh;
+    overflow-y: auto;
+    background-color: #fff6c9;
+    border: 5px solid #8a5a2b;
+    border-radius: 24px;
+    box-shadow: 8px 8px 0 #8a5a2b;
+    padding: 20px;
+    text-align: center;
+    animation: pop 0.25s ease-out;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+.modal h2 {
+    margin: 0 0 6px;
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #e53935;
+    letter-spacing: 1px;
+}
+
+.modal-sub {
+    margin: 0 0 16px;
+    font-family: "Patrick Hand", cursive;
+    font-size: 1.2rem;
+    color: #5a3a14;
+}
+
+/* PAYMENT BUTTONS */
+.modal .pay-btn {
+    width: 100%;
+    height: auto;
+    min-height: 56px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    margin: 0 0 10px;
+    text-align: left;
+    background-color: #ffffff;
+    font-size: 1rem;
+}
+
+.modal .pay-btn:hover {
+    background-color: #eafaff;
+}
+
+.modal .pay-icon {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    color: #fff;
+    font-size: 1.2rem;
+    border: 2px solid #8a5a2b;
+}
+
+.modal .pay-icon.gcash {
+    background-color: #1e88e5;
+}
+
+.modal .pay-icon.card {
+    background-color: #ffe14d;
+}
+
+.modal .pay-icon.maya {
+    background-color: #1b1b1b;
+    color: #7ee08a;
+}
+
+.modal .pay-icon.apple {
+    background-color: #444;
+}
+
+.modal .pay-icon.apple::before {
+    content: "Pay";
+    font-size: 0.7rem;
+}
+
+.modal .pay-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.15;
+    min-width: 0;
+    color: #5a3a14;
+}
+
+.modal .pay-info small {
+    font-family: "Patrick Hand", cursive;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: #7a6a52;
+}
+
+.modal .pay-badge {
+    flex: 0 0 auto;
+    font-size: 0.7rem;
+    padding: 3px 7px;
+    border-radius: 8px;
+    background-color: #ffb3d1;
+    border: 2px solid #c2467a;
+    color: #8a2455;
+}
+
+.modal .btn-close {
+    display: block;
+    margin: 6px auto 0;
+    height: 44px;
+    padding: 0 24px;
+    background-color: #ff8a80;
+    font-size: 1.1rem;
+}
+
+/* PROCESSING VIEW */
+.processing {
+    display: none;
+    padding: 24px 0;
+}
+
+.spinner {
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* TOAST */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 40px;
+    transform: translate(-50%, 150px);
+    z-index: 70;
+    width: max-content;
+    max-width: 92vw;
+    background-color: #fff6c9;
+    border: 4px solid #8a5a2b;
+    border-radius: 30px;
+    box-shadow: 4px 4px 0 #8a5a2b;
+    padding: 10px 24px;
+    text-align: center;
+    color: #5a3a14;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+}
+
+.toast small {
+    font-family: "Patrick Hand", cursive;
+    font-size: 1rem;
+    color: #2e7d32;
+}
+
+/* CONFETTI */
+.confetti-box {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    overflow: hidden;
+}
+
+.confetti-box span {
+    position: absolute;
+    top: -40px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(540deg);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .calculator {
+        padding: 16px;
+    }
+
+    button {
+        height: 50px;
+        font-size: 1.15rem;
+    }
+
+    .result {
+        font-size: 1.8rem;
+    }
+
+    .tag {
+        right: -6px;
+    }
+}
+
+@media (max-height: 700px) {
+    body {
+        align-items: flex-start;
+    }
+
+    .title {
+        margin-bottom: 14px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .calculator {
+        width: 400px;
+    }
+
+    .modal {
+        width: 400px;
+    }
+}
+
+/* =====================================================
+   BACKGROUND CHARACTERS (no border, uneven layout)
+   ===================================================== */
+.characters {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.char {
+    position: absolute;
+    height: auto;
+    --rot: 0deg;
+    /* soft shadow that follows the shape of the cutout */
+    filter: drop-shadow(0 8px 10px rgba(0, 40, 80, 0.35));
+    will-change: transform;
+}
+
+/* Each character has its own size, spot, tilt, motion and speed.
+   Positions are measured from the CENTER of the screen (50%),
+   so they stay close to the calculator. */
+
+/* SpongeBob: big, left side, upper */
+.c-sponge {
+    width: clamp(130px, 21vw, 290px);
+    right: calc(50% + 175px);
+    top: 9%;
+    --rot: -7deg;
+    animation: floatA 4.3s ease-in-out infinite;
+    animation-delay: -1.2s;
+}
+
+/* Mr. Krabs: right side, high, a bit smaller */
+.c-krabs {
+    width: clamp(120px, 18vw, 250px);
+    left: calc(50% + 190px);
+    top: 2%;
+    --rot: 9deg;
+    animation: swayB 6.7s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+/* Patrick: left side, low, tucked a little closer */
+.c-patrick {
+    width: clamp(115px, 17vw, 235px);
+    right: calc(50% + 150px);
+    bottom: 3%;
+    --rot: 4deg;
+    animation: bounceC 5.1s ease-in-out infinite;
+    animation-delay: -0.4s;
+}
+
+/* Squidward: right side, middle-low, tall and slim */
+.c-squid {
+    width: clamp(105px, 15vw, 210px);
+    left: calc(50% + 165px);
+    bottom: 11%;
+    --rot: -4deg;
+    animation: driftD 7.9s ease-in-out infinite;
+    animation-delay: -5s;
+}
+
+/* ---- different idle motions ---- */
+@keyframes floatA {
+    0%, 100% { transform: translateY(0) rotate(var(--rot)); }
+    50%      { transform: translateY(-18px) rotate(calc(var(--rot) + 3deg)); }
+}
+
+@keyframes swayB {
+    0%, 100% { transform: translateX(0) rotate(var(--rot)); }
+    35%      { transform: translateX(-12px) rotate(calc(var(--rot) - 4deg)); }
+    70%      { transform: translateX(10px) rotate(calc(var(--rot) + 3deg)); }
+}
+
+@keyframes bounceC {
+    0%, 100% { transform: translateY(0) scale(1) rotate(var(--rot)); }
+    40%      { transform: translateY(-14px) scale(1.04) rotate(var(--rot)); }
+    60%      { transform: translateY(-14px) scale(1.04) rotate(var(--rot)); }
+}
+
+@keyframes driftD {
+    0%, 100% { transform: translate(0, 0) rotate(var(--rot)); }
+    25%      { transform: translate(8px, -10px) rotate(calc(var(--rot) + 2deg)); }
+    50%      { transform: translate(-6px, -20px) rotate(calc(var(--rot) - 3deg)); }
+    75%      { transform: translate(-10px, -6px) rotate(calc(var(--rot) + 1deg)); }
+}
+
+/* ---- after paying: every character dances differently ---- */
+.characters.celebrate .c-sponge {
+    animation: danceA 0.38s ease-in-out infinite alternate;
+}
+
+.characters.celebrate .c-krabs {
+    animation: danceB 0.5s ease-in-out infinite alternate;
+}
+
+.characters.celebrate .c-patrick {
+    animation: danceC 0.3s ease-in-out infinite alternate;
+}
+
+.characters.celebrate .c-squid {
+    animation: danceD 0.44s ease-in-out infinite alternate;
+}
+
+@keyframes danceA {
+    0%   { transform: translateY(0) rotate(-12deg) scale(1); }
+    100% { transform: translateY(-34px) rotate(8deg) scale(1.1); }
+}
+
+@keyframes danceB {
+    0%   { transform: translateX(-14px) rotate(14deg) scale(1); }
+    100% { transform: translateX(14px) rotate(-6deg) scale(1.08); }
+}
+
+@keyframes danceC {
+    0%   { transform: translateY(0) scale(1, 0.94) rotate(-4deg); }
+    100% { transform: translateY(-42px) scale(0.95, 1.08) rotate(6deg); }
+}
+
+@keyframes danceD {
+    0%   { transform: translate(-8px, 0) rotate(-10deg); }
+    100% { transform: translate(10px, -26px) rotate(12deg); }
+}
+
+/* ---- smaller screens: characters peek out around the calculator ---- */
+@media (max-width: 900px) {
+    .c-sponge  { width: 120px; right: auto; left: 1%;   top: 2%; }
+    .c-krabs   { width: 105px; left: auto;  right: 1%;  top: 14%; }
+    .c-patrick { width: 100px; right: auto; left: 3%;   bottom: 2%; }
+    .c-squid   { width: 80px;  left: auto;  right: 4%;  bottom: 6%; }
+}
+
+@media (max-width: 480px) {
+    .c-sponge  { width: 92px; }
+    .c-krabs   { width: 82px; }
+    .c-patrick { width: 78px; }
+    .c-squid   { width: 62px; }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Luckiest+Guy&family=Patrick+Hand&display=swap"
+        rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="calcu.css" />
+
+    <title>Calculator</title>
+</head>
+
+<body>
+    <div class="bubbles" aria-hidden="true">
+        <span>🫧</span>
+        <span>🫧</span>
+        <span>🫧</span>
+        <span>🫧</span>
+        <span>🫧</span>
+        <span>🫧</span>
+        <span>🫧</span>
+        <span>🫧</span>
+    </div>
+
+    <!-- BACKGROUND CHARACTERS (transparent PNGs) -->
+    <div class="characters" aria-hidden="true">
+        <img class="char c-sponge" src="images/spongebob-removebg-preview.png" alt="" />
+        <img class="char c-krabs" src="images/mr_crabs-removebg-preview.png" alt="" />
+        <img class="char c-patrick" src="images/patrick-removebg-preview.png" alt="" />
+        <img class="char c-squid" src="images/sqyaiward-removebg-preview.png" alt="" />
+    </div>
+
+    <!-- PAYMENT SOUND -->
+    <audio id="paySound" src="audio/Voicy_Mr krabs with money (mp3cut.net).mp3" preload="auto"></audio>
+
+    <main class="wrapper">
+        <h1 class="title">CALCULATOR</h1>
+
+        <div class="calculator">
+            <div class="tag">
+                I'M JUST<br />
+                A SPONGE
+            </div>
+
+            <form name="form1">
+                <div class="display">
+                    <input
+                        type="text"
+                        name="textview"
+                        readonly
+                        placeholder="0"
+                    />
+                    <div class="result" id="result">&nbsp;</div>
+                </div>
+            </form>
+
+            <section class="buttons">
+                <button type="button" class="btn-clear" onclick="clearScreen()">AC</button>
+                <button type="button" class="btn-func" onclick="backspace()">⌫</button>
+                <button type="button" class="btn-func" onclick="insert('(')">(</button>
+                <button type="button" class="btn-func" onclick="insert(')')">)</button>
+
+                <button type="button" onclick="insert('7')">7</button>
+                <button type="button" onclick="insert('8')">8</button>
+                <button type="button" onclick="insert('9')">9</button>
+                <button type="button" class="btn-op" onclick="insert('÷')">÷</button>
+
+                <button type="button" onclick="insert('4')">4</button>
+                <button type="button" onclick="insert('5')">5</button>
+                <button type="button" onclick="insert('6')">6</button>
+                <button type="button" class="btn-op" onclick="insert('×')">×</button>
+
+                <button type="button" onclick="insert('1')">1</button>
+                <button type="button" onclick="insert('2')">2</button>
+                <button type="button" onclick="insert('3')">3</button>
+                <button type="button" class="btn-op" onclick="insert('−')">−</button>
+
+                <button type="button" class="btn-zero" onclick="insert('0')">0</button>
+                <button type="button" onclick="insert('.')">.</button>
+                <button type="button" class="btn-op" onclick="insert('+')">+</button>
+
+                <button type="button" class="btn-equal" onclick="equal()">=</button>
+                <button type="button" class="btn-pay" onclick="payNow()">PAY</button>
+            </section>
+        </div>
+    </main>
+
+    <!-- FAKE PAYMENT MODAL -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal">
+            <div id="payChoose">
+                <h2>UNLOCK YOUR ANSWER</h2>
+                <p class="modal-sub">Pick a payment method!</p>
+
+                <button type="button" class="pay-btn" onclick="pay('GCash')">
+                    <span class="pay-icon gcash">G</span>
+                    <span class="pay-info">
+                        <b>GCash</b>
+                        <small>0912-345-6789</small>
+                    </span>
+                    <span class="pay-badge">FASTEST</span>
+                </button>
+
+                <button type="button" class="pay-btn" onclick="pay('Credit Card')">
+                    <span class="pay-icon card">💳</span>
+                    <span class="pay-info">
+                        <b>Credit Card</b>
+                        <small>VISA / MC</small>
+                    </span>
+                    <span class="pay-badge">CARD</span>
+                </button>
+
+                <button type="button" class="pay-btn" onclick="pay('Maya')">
+                    <span class="pay-icon maya">M</span>
+                    <span class="pay-info">
+                        <b>Maya</b>
+                        <small>tap to "pay"</small>
+                    </span>
+                    <span class="pay-badge">CUTE</span>
+                </button>
+
+                <button type="button" class="pay-btn" onclick="pay('Apple Pay')">
+                    <span class="pay-icon apple"></span>
+                    <span class="pay-info">
+                        <b>Apple Pay</b>
+                        <small>FaceID confirmed</small>
+                    </span>
+                    <span class="pay-badge">APPLE</span>
+                </button>
+
+                <button type="button" class="btn-close" onclick="closeModal()">Close</button>
+            </div>
+
+            <div id="payProcessing" class="processing">
+                <div class="spinner">🐚</div>
+                <h2>Processing...</h2>
+                <p class="modal-sub" id="payMethod"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <b>Thank you for purchasing!</b>
+        <small>Bawal Refund</small>
+    </div>
+
+    <div class="confetti-box" id="confetti"></div>
+
+    <script src="calcu.js"></script>
+</body>
+</html>
